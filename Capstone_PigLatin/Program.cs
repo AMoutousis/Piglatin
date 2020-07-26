@@ -38,7 +38,7 @@ namespace Capstone_PigLatin
 
                         if (firstVowel == 0)
                         {
-                            Console.Write($"{word}ay ");
+                            Console.Write($"{word}way ");
 
                         }
                         else if (firstVowel == -1)
