@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Capstone_PigLatin
 {
@@ -10,77 +11,72 @@ namespace Capstone_PigLatin
             string lowerCaseInput;
 
             bool validLength = true;
-            bool invalidLength = false;
-            
-
-            Console.WriteLine("Hello!");
+            bool runAgain = true;
 
 
-            Console.WriteLine("Please type in a word: ");
-            string userInput = Console.ReadLine();
+            Console.WriteLine("Hello! Welcome to this Pig Latin program!");
 
-            MakeLowercase(userInput); //convert input to lowercase for formatting and comparison
-
-            Console.WriteLine($"The original input was: {userInput}");
-            Console.WriteLine($"The lower case input is: {MakeLowercase(userInput)}");
-
-            lowerCaseInput = (MakeLowercase(userInput));
-
-            Console.WriteLine("Length " + lowerCaseInput.Length.ToString());
-            int wordLength = int.Parse(lowerCaseInput.Length.ToString());
-
-
-
-            //char[] splits = { ' ', ',', '.' };
-
-            string[] words = lowerCaseInput.Split(' ');
-
-            foreach (string word in words)
+            while (runAgain)
             {
-                int firstVowel = word.IndexOfAny(vowels); //locate first vowel by comparing vowels char array to words
-
-
-                if (firstVowel == 0)
+                while (validLength == true)
                 {
-                    //string beginVowel = word.
-                    Console.Write(word + "way ");
+                    Console.WriteLine("\nPlease type in a word: ");
+                    string userInput = VerifyInput(Console.ReadLine());
 
-                }
-                else
-                {
-                    string firstPart = word.Substring(firstVowel);
-                    string secondPart = word.Substring(0, firstVowel);
-                    Console.Write(firstPart + secondPart + "ay ");
+                    MakeLowercase(userInput); 
+
+                    Console.WriteLine($"The original input was: {userInput}");
+                    Console.WriteLine($"The lower case input is: {MakeLowercase(userInput)}");
+
+                    lowerCaseInput = (MakeLowercase(userInput));
+
+                    Console.WriteLine("Length " + lowerCaseInput.Length.ToString());
+                    int wordLength = int.Parse(lowerCaseInput.Length.ToString());
+
+
+                    string[] words = lowerCaseInput.Split(' ');
+
+                    foreach (string word in words)
+                    {
+                        int firstVowel = word.IndexOfAny(vowels);
+
+
+                        if (firstVowel == 0)
+                        {
+                            Console.Write($"{word}ay ");
+
+                        }
+                        else if (firstVowel == -1)
+                        {
+                            Console.Write($"{word} ");
+                        }
+                        else
+                        {
+                            string firstPart = word.Substring(firstVowel);
+                            string secondPart = word.Substring(0, firstVowel);
+                            Console.Write(firstPart + secondPart + "ay ");
+                        }
+                    }
+
+                    Console.WriteLine("\n");
+
+
+                    if (RunProgramAgain() == true)
+                    {
+                        runAgain = true;
+                        validLength = true;
+                    }
+                    else
+                    {
+                        runAgain = false;
+                        validLength = false;
+                    }
+
                 }
             }
-            //FindVowel(lowerCaseInput);
-
-            //FindVowel(MakeLowercase(lowerCaseInput));
-            
-        }
-        
-        //FindVowel is called to find the first vowel in the user entered string
-        public static void FindVowel(string userWord)
-        {
-            char[] vowels = "aeiou".ToCharArray();
-
-            Console.WriteLine("line 36");
-
-            string word = userWord;
-            int wordLength = int.Parse(word.Length.ToString(userWord));
-
-            Console.WriteLine("In FindVowel");
-            Console.WriteLine(wordLength);
-
-            //for(int i = 0; i <= wordLength; )
 
         }
-        
-        /*public static string SeparateWords(string userInput)
-        {
-            string words = userInput.Split(' ');
-        }
-        */
+
         public static string MakeLowercase(string userInput)
         {
             string lowerCaseInput;
@@ -89,5 +85,55 @@ namespace Capstone_PigLatin
 
             return lowerCaseInput;
         }
+        
+        public static string VerifyInput(string message)
+        {
+            while (string.IsNullOrWhiteSpace(message))
+            {
+                Console.WriteLine("Please type in a word: ");
+                message.Trim();
+                message = Console.ReadLine();
+            }
+
+
+            return message;
+
+        }
+        public static bool RunProgramAgain()
+        {
+            bool validateAgain = true;
+            bool repeatProgram = true;
+
+            while (validateAgain == true)
+            {
+                Console.WriteLine("Would you like to run this program again? Enter y to run again or n to quit.");
+                string playAgain = Console.ReadLine();
+
+                if (playAgain.Length > 1 || playAgain.Length == 0)
+                {
+                    validateAgain = true;
+                }
+                else if (playAgain.ToLower() == "y")
+                {
+                    validateAgain = false;
+                    repeatProgram = true;
+
+                }
+                else if (playAgain.ToLower() == "n")
+                {
+                    validateAgain = false;
+                    repeatProgram = false;
+
+                }
+                else
+                {
+                    validateAgain = true;
+                }
+            }
+
+            return repeatProgram;
+
+        }
+        
     }
 }
