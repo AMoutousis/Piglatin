@@ -25,17 +25,12 @@ namespace Capstone_PigLatin
 
                     MakeLowercase(userInput); 
 
-                    Console.WriteLine($"The original input was: {userInput}");
-                    Console.WriteLine($"The lower case input is: {MakeLowercase(userInput)}");
 
                     lowerCaseInput = (MakeLowercase(userInput));
 
-                    Console.WriteLine("Length " + lowerCaseInput.Length.ToString());
-                    int wordLength = int.Parse(lowerCaseInput.Length.ToString());
-
 
                     string[] words = lowerCaseInput.Split(' ');
-
+                    
                     foreach (string word in words)
                     {
                         int firstVowel = word.IndexOfAny(vowels);
